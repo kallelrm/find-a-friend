@@ -11,8 +11,18 @@ export class InMemoryPetsRepository implements PetsRepository {
       animal: data.animal,
       city: data.city,
       org_id: data.org_id,
+      created_at: new Date(),
+      adopted_at: data.adopted_at ? new Date(data.adopted_at) : null,
     }
     this.items.push(pet)
     return pet
+  }
+
+  async findNotAdoptedByCity(city: string) {
+    const pets: Pet[] = this.items
+      .filter((item) => item.city === city)
+      .filter((item) => !item.adopted_at)
+
+    return pets
   }
 }
