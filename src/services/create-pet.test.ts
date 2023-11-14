@@ -25,7 +25,7 @@ describe('create pet', () => {
     })
   })
 
-  test('Should be abre to create pet', async () => {
+  test('Should be able to create pet', async () => {
     const { pet } = await sut.execute({
       animal: 'Cachorro',
       name: 'carlos',
