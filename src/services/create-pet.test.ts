@@ -29,6 +29,7 @@ describe('create pet', () => {
     const { pet } = await sut.execute({
       animal: 'Cachorro',
       name: 'carlos',
+      description: 'manco',
       city: 'santa maria',
       orgId: 'id-de-teste',
     })
@@ -48,6 +49,7 @@ describe('create pet', () => {
       await sut.execute({
         name: 'carlos',
         city: 'santa maria',
+        description: '',
         animal: 'Cachorro',
         orgId: 'id-de-testes',
       })

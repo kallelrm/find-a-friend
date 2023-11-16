@@ -1,5 +1,5 @@
 import { Pet, Prisma } from '@prisma/client'
-import { PetsRepository } from '../pets-repository'
+import { IQueryPetsByFilter, PetsRepository } from '../pets-repository'
 import { randomUUID } from 'crypto'
 
 export class InMemoryPetsRepository implements PetsRepository {
@@ -10,6 +10,7 @@ export class InMemoryPetsRepository implements PetsRepository {
       name: data.name,
       animal: data.animal,
       city: data.city,
+      description: data.description ?? '',
       org_id: data.org_id,
       created_at: new Date(),
       adopted_at: data.adopted_at ? new Date(data.adopted_at) : null,
@@ -20,8 +21,20 @@ export class InMemoryPetsRepository implements PetsRepository {
 
   async findNotAdoptedByCity(city: string) {
     const pets: Pet[] = this.items
-      .filter((item) => item.city === city)
+      .filter((item) => item.city.toUpperCase() === city.toUpperCase())
       .filter((item) => !item.adopted_at)
+
+    return pets
+  }
+
+  async queryPetsByFilter(data: IQueryPetsByFilter) {
+    const pets: Pet[] =
+      this.items
+        .filter((item) => item.city.toUpperCase() === data.city.toUpperCase())
+        .filter(
+          (item) =>
+            item.description?.toUpperCase().includes(data.query.toUpperCase()),
+        ) ?? []
 
     return pets
   }

@@ -4,7 +4,8 @@
   "description": "\"backend server for find a friend application\"",
   "main": "index.js",
   "scripts": {
-    "test": "vitest run --dir src/services"
+    "test": "vitest run --dir src/services", 
+    "test:watch": "vitest watch --dir src/services" 
   },
   "author": "kallel roman",
   "license": "ISC",

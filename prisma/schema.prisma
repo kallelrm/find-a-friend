@@ -11,14 +11,15 @@ datasource db {
 }
 
 model Pet {
-  id         String    @id @default(uuid())
-  name       String
-  animal     String
-  city       String
-  org        Org       @relation(fields: [org_id], references: [id])
-  org_id     String
-  created_at DateTime  @default(now())
-  adopted_at DateTime?
+  id          String    @id @default(uuid())
+  name        String
+  animal      String
+  description String?
+  city        String
+  org         Org       @relation(fields: [org_id], references: [id])
+  org_id      String
+  created_at  DateTime  @default(now())
+  adopted_at  DateTime?
 
   @@map("pets")
 }

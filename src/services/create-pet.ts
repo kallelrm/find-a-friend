@@ -6,6 +6,7 @@ import { ResourceNotFoundError } from './errors/resource-not-found'
 interface CreatePetServiceRequest {
   name: string
   city: string
+  description: string
   animal: string
   orgId: string
 }
@@ -23,6 +24,7 @@ export class CreatePetService {
   async execute({
     name,
     animal,
+    description,
     city,
     orgId,
   }: CreatePetServiceRequest): Promise<CreatePetServiceResponse> {
@@ -36,6 +38,7 @@ export class CreatePetService {
       name,
       city,
       animal,
+      description,
       org_id: orgId,
     })
     return { pet }
