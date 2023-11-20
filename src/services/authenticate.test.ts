@@ -2,6 +2,7 @@ import { describe, beforeEach, test, expect } from 'vitest'
 import { AuthenticateService } from './authenticate'
 import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
 import { compare, hash } from 'bcryptjs'
+import { InvalidCredentialsError } from './errors/invalid-credentials-error'
 
 let orgsRepository: InMemoryOrgsRepository
 let sut: AuthenticateService
@@ -37,7 +38,7 @@ describe('authenticate', () => {
         email: 'org-de-teste@gmail.com',
         password: '12345',
       })
-    }).rejects.toBeInstanceOf(Error)
+    }).rejects.toBeInstanceOf(InvalidCredentialsError)
   })
 
   test('should not be able to authenticate with unexisting mail', () => {
@@ -46,6 +47,6 @@ describe('authenticate', () => {
         email: 'ruim@ruim.com',
         password: '12345678',
       })
-    }).rejects.toBeInstanceOf(Error)
+    }).rejects.toBeInstanceOf(InvalidCredentialsError)
   })
 })
