@@ -13,8 +13,7 @@ export async function detail(req: FastifyRequest, res: FastifyReply) {
   try {
     const detailPetService = makeDetailPetService()
     const pet = await detailPetService.execute({ id })
-
-    return pet
+    return res.send({ pet })
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
       return res.status(404).send({

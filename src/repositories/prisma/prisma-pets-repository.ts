@@ -41,13 +41,26 @@ export class PrismaPetsRepoitory implements PetsRepository {
     // })
     const pets = await prisma.$queryRaw<
       Pet[]
-    >`SELECT * FROM pets WHERE city ILIKE %${data.city}% AND name ILIKE %${data.query}% OR animal ILIKE %${data.query}% OR description ILIKE %${data.query}%;`
+    >`SELECT * FROM pets WHERE city ILIKE %${data.city}% AND name ILIKE %${
+      data.query
+    }% OR animal ILIKE %${data.query}% OR description ILIKE %${
+      data.query
+    }% LIMIT 20 OFFSET ${(data.page - 1) * 20};`
 
     return pets
   }
 
   async queryPetById(id: string) {
     const pet = await prisma.pet.findFirst({ where: { id } })
+    return pet
+  }
+
+  async adoptById(id: string) {
+    const pet = await prisma.pet.update({
+      where: { id },
+      data: { adopted_at: new Date() },
+    })
+
     return pet
   }
 }

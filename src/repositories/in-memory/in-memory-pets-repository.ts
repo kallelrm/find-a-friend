@@ -47,4 +47,11 @@ export class InMemoryPetsRepository implements PetsRepository {
 
     return pet
   }
+
+  async adoptById(id: string) {
+    const pet = this.items.findIndex((item) => item.id === id)
+    this.items[pet] = { ...this.items[pet], adopted_at: new Date() }
+
+    return this.items[pet]
+  }
 }
