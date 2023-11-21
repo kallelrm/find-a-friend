@@ -18,13 +18,15 @@ export async function create(req: FastifyRequest, res: FastifyReply) {
 
   try {
     const createPetService = makeCreatePetService()
-    await createPetService.execute({
+    const pet = await createPetService.execute({
       animal,
       city,
       description,
       name,
       orgId,
     })
+
+    return pet
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
       return res.status(404).send({
