@@ -11,4 +11,5 @@ export interface PetsRepository {
   findNotAdoptedByCity(city: string): Promise<Pet[]>
   queryPetsByFilter(data: IQueryPetsByFilter): Promise<Pet[]>
   queryPetById(id: string): Promise<Pet | null>
+  adoptById(id: string): Promise<Pet>
 }
