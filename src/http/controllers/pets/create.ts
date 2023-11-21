@@ -26,7 +26,7 @@ export async function create(req: FastifyRequest, res: FastifyReply) {
       orgId,
     })
 
-    return pet
+    return res.send({ pet })
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
       return res.status(404).send({
